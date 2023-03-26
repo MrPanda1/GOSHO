@@ -1,0 +1,8 @@
+{
+	"prefix": "!",
+	"version": "0.0.1a",
+	"ownerNames": ["MrPanda1"],
+	"ownerIDs": ["<@!182711856975183872>"],
+	"activity": "!help",
+    "addURL": "https://discord.com/api/oauth2/authorize?client_id=1089241793146658877&permissions=67584&scope=bot"
+}

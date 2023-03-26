@@ -66,7 +66,7 @@ class Currency(commands.Cog, name='Currency'):
             await ctx.send(content='You are already being tracked!')
 
     @commands.command(
-        help="Shows currency of members in server. Specify a name or page number to filter results.",
+        help="Shows currency of members in server.",
         brief="Shows currency"
     )
     async def currency(self, ctx: commands.Context):

@@ -34,7 +34,7 @@ class Debug(commands.Cog, name='Utilities'):
         help="Shows the ping/latency of the bot in milliseconds",
         brief="Shows ping"
     )
-    async def ping(self, ctx):
+    async def ping(self, ctx: commands.Context):
         client = self.bot
         latency = round(client.latency * 1000)
         msg = f':ping_pong: The ping is **{latency}** ms!'
@@ -55,7 +55,7 @@ class Debug(commands.Cog, name='Utilities'):
         help="Shows this help menu",
         brief="Shows help"
     )
-    async def help(self, ctx, *params):
+    async def help(self, ctx: commands.Context, *params):
         # checks if cog parameter was given
         # if not: sending all modules and commands not associated with a cog
         if not params:

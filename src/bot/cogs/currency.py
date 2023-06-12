@@ -84,6 +84,41 @@ class Currency(commands.Cog, name='Currency'):
 
         await ctx.send(embed=utils.make_embed(title='Currency', color=discord.Color.from_rgb(133, 187, 101), value=msg))
 
+    # TODO: Make command actually keep track of bets
+    # TODO: Make way to respond to bet
+    # TODO: Make way to close bet
+    # TODO: Make way to adjust currency based on bet
+    @commands.command(
+        help="`bet <amount> <description>` Bet `amount` DavisCoins for the `description` bet",
+        brief="Bet DavisCoin"
+    )
+    async def bet(self, ctx: commands.Context, *params):
+        try:
+            amount = float(params[0])
+            description = ' '.join(params[1:])
+        except:
+            amount, description = None, None
+        user_id = ctx.author.id
+        
+        if not amount or not description:
+            await ctx.send(content='Amount and description are required!')
+            return
+        
+        user_balance = self.execute_query('''
+            SELECT B.Balance
+            FROM Users U
+            INNER JOIN Balance B
+                ON B.Id = U.Id
+            WHERE U.ServerId = ?
+            AND U.DiscordId = ?
+        ''', (ctx.guild.id, user_id))[0][0]
+
+        if user_balance < amount:
+            await ctx.send(content='Invalid amount. You cannot bet more than your current balance :cry:')
+            return
+
+        await ctx.send(embed=utils.make_embed(title='Bet', color=discord.Color.from_rgb(133, 187, 101), name=f'Amount: {amount} DavisCoin(s)', value=f'<@!{user_id}>\'s bet: {description}'))
+
     # ------------------------------------------------------------------------ #
     # Helper methods
     def execute_query(self, exec_sql, params = None) -> list:
